@@ -71,3 +71,30 @@ def readApplicationsFile(fileName):
     inputFile.close()
     return applicationList
 
+def readRiskFile(fileName):
+    fuzzySetsDict = FuzzySetsDict() # dictionary to be returned
+    inputFile = open(fileName, 'r')
+    line = inputFile.readline()
+    while line != '':
+        fuzzySet = FuzzySet()   # just one fuzzy set
+        elementsList = line.split(', ')
+        setid = elementsList[0]
+        var_label=setid.split('=')
+        fuzzySet.var=var_label[0]
+        fuzzySet.label=var_label[1]        
+
+        xmin = int(elementsList[1])
+        xmax = int(elementsList[2])
+        a = int(elementsList[3])
+        b = int(elementsList[4])
+        c = int(elementsList[5])
+        d = int(elementsList[6])
+        x = np.arange(xmin,xmax,1)
+        y = skf.trapmf(x, [a, b, c, d])
+        fuzzySet.x = x
+        fuzzySet.y = y
+        fuzzySetsDict.update( { setid : fuzzySet } )
+
+        line = inputFile.readline()
+    inputFile.close()
+    return fuzzySetsDict
