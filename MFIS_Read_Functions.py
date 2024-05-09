@@ -36,8 +36,8 @@ def readFuzzySetsFile(fleName):
     inputFile.close()
     return fuzzySetsDict
 
-def readRulesFile() -> RuleList:
-    inputFile = open('files/Rules.txt', 'r')
+def readRulesFile(fileName) -> RuleList:
+    inputFile = open(fileName, 'r')
     rules = RuleList()
     line = inputFile.readline()
     while line != '':
@@ -55,8 +55,8 @@ def readRulesFile() -> RuleList:
     inputFile.close()
     return rules
 
-def readApplicationsFile():
-    inputFile = open('files/Applications.txt', 'r')
+def readApplicationsFile(fileName):
+    inputFile = open(fileName, 'r')
     applicationList = []
     line = inputFile.readline()
     while line != '':
